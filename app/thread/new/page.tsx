@@ -1,5 +1,5 @@
 "use client";
-import type { RequestBody } from "@/app/api/contact-form/route";
+import type { RequestBody, ContactFormResponse } from "@/app/api/contact-form/route";
 import { Button } from "@/components/button";
 import { FormField } from "@/components/formField";
 import Navigation from "@/components/navigation";
@@ -31,8 +31,9 @@ export default function NewThreadPage() {
 				body: JSON.stringify(body),
 			});
 			if (result.ok) {
+				const data = (await result.json()) as ContactFormResponse;
 				toast.success("Nice, we'll be in touch shortly!");
-				router.push("/");
+				router.push(data.threadId ? `/thread/${data.threadId}` : "/");
 			} else {
 				toast.error("Oops");
 			}

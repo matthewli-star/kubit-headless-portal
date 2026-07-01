@@ -6,6 +6,10 @@ export type RequestBody = {
 	message: string;
 };
 
+export type ContactFormResponse = {
+	threadId: string;
+};
+
 // When implementing this for real, take these values from user auth (e.g validate auth token and take values from claims)
 const name = "Bob Smith";
 const email = "bob.smith@example.com";
@@ -70,5 +74,6 @@ export async function POST(request: Request) {
 	}
 
 	console.log(`Thread created ${createThreadRes.data.id}.`);
-	return new Response("", { status: 200 });
+	const responseBody: ContactFormResponse = { threadId: createThreadRes.data.id };
+	return Response.json(responseBody);
 }
