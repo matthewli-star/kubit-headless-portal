@@ -3,6 +3,7 @@ import { fetchThreadTimelineEntries } from "@/lib/fetchThreadTimelineEntries";
 import { getActorFullName } from "@/lib/getActorFullName";
 import { getFormattedDate } from "@/lib/getFormattedDate";
 import { getPriority } from "@/lib/getPriority";
+import { ThreadAutoRefresh } from "@/components/threadAutoRefresh";
 import styles from "./page.module.css";
 
 export const fetchCache = "force-no-store"
@@ -103,6 +104,7 @@ export default async function ThreadPage({
 						);
 					})}
 				</div>
+				<ThreadAutoRefresh entryCount={timelineEntries.edges.length} />
 			</main>
 		</>
 	);
