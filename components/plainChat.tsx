@@ -12,6 +12,7 @@ declare global {
 				appId: string;
 				requireAuthentication?: boolean;
 			}) => void;
+			open: () => void;
 		};
 	}
 }
