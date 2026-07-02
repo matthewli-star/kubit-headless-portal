@@ -37,9 +37,7 @@ This is hardcoded in `api/contact-form/routes.ts` if you'd like to use a differe
 
 ```bash
 npm install
-PLAIN_API_KEY=<your_key> PLAIN_CHAT_SECRET=<your_chat_secret> npm run dev
+PLAIN_API_KEY=<your_key> npm run dev
 ```
-
-`PLAIN_CHAT_SECRET` is the chat verification secret from Plain → Settings → Chat. It is used server-side to compute the `emailHash` that authenticates the chat widget as the known customer (skipping the email one-time-code flow).
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to check it out!

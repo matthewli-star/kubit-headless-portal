@@ -1,16 +1,14 @@
 import Navigation from "@/components/navigation";
 import { PaginationControls } from "@/components/paginationControls";
 import { ThreadRow } from "@/components/threadRow";
-import { ContinueInChatButton } from "@/components/continueInChatButton";
 import { plainClient } from "@/lib/plainClient";
-import { customerIdentity } from "@/lib/customerIdentity";
 import { ThreadStatus } from "@team-plain/typescript-sdk";
 import styles from "./page.module.css";
 
 export const fetchCache = "force-no-store";
 
 // When adapting this example get the tenant id as part of auth or fetch it afterwards
-const tenantExternalId = customerIdentity.tenantExternalId;
+const tenantExternalId = "abcd1234";
 
 export default async function Home({
 	searchParams,
@@ -37,7 +35,6 @@ export default async function Home({
 			<Navigation title="Support Portal (Example)" />
 			<main className={styles.main}>
 				<h2 className={styles.title}>Support requests</h2>
-				<ContinueInChatButton />
 				{threads.data && (
 					<>
 						<div className={styles.list}>

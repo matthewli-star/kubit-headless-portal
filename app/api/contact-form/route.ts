@@ -1,17 +1,15 @@
 import { plainClient } from "@/lib/plainClient";
 import { inspect } from "util";
-import { customerIdentity } from "@/lib/customerIdentity";
 
 export type RequestBody = {
 	title: string;
 	message: string;
 };
 
-export type ContactFormResponse = {
-	threadId: string;
-};
-
-const { email, fullName: name, tenantExternalId } = customerIdentity;
+// When implementing this for real, take these values from user auth (e.g validate auth token and take values from claims)
+const name = "Bob Smith";
+const email = "bob.smith@example.com";
+const tenantExternalId = "abcd1234";
 
 export async function POST(request: Request) {
 	// In production validation of the request body might be necessary.
@@ -72,6 +70,5 @@ export async function POST(request: Request) {
 	}
 
 	console.log(`Thread created ${createThreadRes.data.id}.`);
-	const responseBody: ContactFormResponse = { threadId: createThreadRes.data.id };
-	return Response.json(responseBody);
+	return new Response("", { status: 200 });
 }

@@ -3,8 +3,6 @@ import { fetchThreadTimelineEntries } from "@/lib/fetchThreadTimelineEntries";
 import { getActorFullName } from "@/lib/getActorFullName";
 import { getFormattedDate } from "@/lib/getFormattedDate";
 import { getPriority } from "@/lib/getPriority";
-import { ThreadAutoRefresh } from "@/components/threadAutoRefresh";
-import { ContinueInChatButton } from "@/components/continueInChatButton";
 import styles from "./page.module.css";
 
 export const fetchCache = "force-no-store"
@@ -105,11 +103,6 @@ export default async function ThreadPage({
 						);
 					})}
 				</div>
-				<ThreadAutoRefresh entryCount={timelineEntries.edges.length} />
-				<div style={{ padding: "12px 0", color: "#888" }}>
-					Didn&apos;t fully answer your question?
-				</div>
-				<ContinueInChatButton />
 			</main>
 		</>
 	);
