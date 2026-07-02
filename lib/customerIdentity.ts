@@ -7,9 +7,3 @@ export const customerIdentity = {
 	fullName: "Matthew Li",
 	tenantExternalId: "abcd1234",
 };
-
-// Stable, deterministic per-user external id for the user's ongoing ARI chat.
-// A returning user always resumes the same chat conversation by this id.
-export function chatExternalId(email: string): string {
-	return `ari-chat:${email}`;
-}

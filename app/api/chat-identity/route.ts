@@ -1,11 +1,10 @@
 import { createHmac } from "crypto";
-import { customerIdentity, chatExternalId } from "@/lib/customerIdentity";
+import { customerIdentity } from "@/lib/customerIdentity";
 
 export type ChatIdentityResponse = {
 	email: string;
 	fullName: string;
 	emailHash: string;
-	chatExternalId: string;
 };
 
 export async function GET() {
@@ -22,7 +21,6 @@ export async function GET() {
 		email,
 		fullName,
 		emailHash,
-		chatExternalId: chatExternalId(email),
 	};
 
 	return Response.json(body);

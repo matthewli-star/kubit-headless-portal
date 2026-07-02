@@ -53,8 +53,10 @@ export function PlainChat() {
 				}
 				const identity = (await res.json()) as ChatIdentityResponse;
 				// Known-user auth: skips the email one-time-code flow and attributes
-				// chats to the real customer, so Ari responds. entryPoint + a stable
-				// externalId resume the user's single ongoing Ari chat on every visit.
+				// chats to the real customer, so Ari responds. entryPoint "chat" opens
+				// into the customer's last conversation; without singleChatMode the
+				// header back button leads to the intro screen, which lists their past
+				// conversations (and lets them start a new one).
 				window.Plain?.init({
 					appId: PLAIN_CHAT_APP_ID,
 					customerDetails: {
@@ -62,13 +64,8 @@ export function PlainChat() {
 						emailHash: identity.emailHash,
 						fullName: identity.fullName,
 					},
-					threadDetails: {
-						externalId: identity.chatExternalId,
-					},
 					entryPoint: {
 						type: "chat",
-						externalId: identity.chatExternalId,
-						singleChatMode: true,
 					},
 				});
 			} catch (error) {
