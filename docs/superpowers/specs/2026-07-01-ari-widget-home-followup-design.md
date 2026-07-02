@@ -42,7 +42,7 @@ ongoing ARI chat lives.
 ## Architecture
 
 ```
-Logged-in user (demo: hardcoded Bob Smith)
+Logged-in user (demo: hardcoded Matthew Li)
         │
         ▼
 GET /api/chat-identity ──► { email, fullName, emailHash, chatExternalId }
@@ -69,8 +69,8 @@ initialization plus one server route that mints the auth hash.
 Single source of truth for the demo customer, removing the literals currently inline
 in the contact-form route.
 
-- Exports the demo identity: `email` (`bob.smith@example.com`), `fullName`
-  (`Bob Smith`), `tenantExternalId` (`abcd1234`).
+- Exports the demo identity: `email` (`matthew.li@kubit.co`), `fullName`
+  (`Matthew Li`), `tenantExternalId` (`abcd1234`).
 - Exports a helper to derive the stable per-user chat external id, e.g.
   `chatExternalId(email) => "ari-chat:" + email`.
 - In production this module is where real auth claims would be read; the comment that
@@ -155,7 +155,7 @@ No test framework in this repo. Verification:
 1. `npx tsc --noEmit` — passes.
 2. `npm run build` — succeeds.
 3. Manual:
-   - Load app → widget authenticates as Bob Smith with **no OTP prompt**.
+   - Load app → widget authenticates as Matthew Li with **no OTP prompt**.
    - Send a message → receive an ARI reply.
    - Reload the page, re-open the widget → **the same chat resumes** (proves
      `externalId` resumption).
