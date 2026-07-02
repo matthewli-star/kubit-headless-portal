@@ -16,6 +16,8 @@ To run this example you need to have a workspace set up with [Plain](https://www
 
 Go to Plain and [create a machine user and API key](https://www.plain.com/docs/api-reference/graphql/authentication). The API key will need the following permissions which you can paste on the create API key page:
 
+Here is the original Titan API key permissions.
+
 ```
 attachment:download,company:read,customer:read,customerGroup:read,customerGroupMembership:read,customerTenantMembership:read,email:read,label:read,labelType:read,note:read,roles:read,serviceLevelAgreement:read,tenant:read,tenant:search,thread:read,tier:read,tierMembership:read,timeline:read,user:read,workspace:read,threadField:read,threadFieldSchema:read,customer:create,customer:edit,thread:create,thread:edit
 ```
