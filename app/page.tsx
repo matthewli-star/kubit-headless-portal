@@ -1,6 +1,7 @@
 import Navigation from "@/components/navigation";
 import { PaginationControls } from "@/components/paginationControls";
 import { ThreadRow } from "@/components/threadRow";
+import { ContinueInChatButton } from "@/components/continueInChatButton";
 import { plainClient } from "@/lib/plainClient";
 import { ThreadStatus } from "@team-plain/typescript-sdk";
 import styles from "./page.module.css";
@@ -35,6 +36,7 @@ export default async function Home({
 			<Navigation title="Support Portal (Example)" />
 			<main className={styles.main}>
 				<h2 className={styles.title}>Support requests</h2>
+				<ContinueInChatButton />
 				{threads.data && (
 					<>
 						<div className={styles.list}>

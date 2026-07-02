@@ -8,7 +8,7 @@ export function ContinueInChatButton() {
 			className={styles.button}
 			onClick={() => window.Plain?.open()}
 		>
-			💬 Continue in chat
+			💬 Chat live with ARI
 		</button>
 	);
 }
