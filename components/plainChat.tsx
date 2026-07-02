@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import type { ChatIdentityResponse } from "@/app/api/chat-identity/route";
 
 // This is the Plain Chat app id. Swap this for your own Chat app id
 // (Settings → Chat in Plain) if you fork this example.
@@ -11,6 +12,21 @@ declare global {
 			init: (options: {
 				appId: string;
 				requireAuthentication?: boolean;
+				customerDetails?: {
+					email: string;
+					emailHash: string;
+					fullName?: string;
+					shortName?: string;
+					chatAvatarUrl?: string;
+				};
+				threadDetails?: {
+					externalId?: string;
+				};
+				entryPoint?: {
+					type?: "default" | "chat";
+					externalId?: string;
+					singleChatMode?: boolean;
+				};
 			}) => void;
 			open: () => void;
 		};
@@ -29,11 +45,41 @@ export function PlainChat() {
 		script.id = "plain-chat-script";
 		script.async = false;
 		script.src = "https://chat.cdn-plain.com/index.js";
-		script.onload = () => {
-			window.Plain?.init({
-				appId: PLAIN_CHAT_APP_ID,
-				requireAuthentication: true,
-			});
+		script.onload = async () => {
+			try {
+				const res = await fetch("/api/chat-identity");
+				if (!res.ok) {
+					throw new Error(`chat-identity responded ${res.status}`);
+				}
+				const identity = (await res.json()) as ChatIdentityResponse;
+				// Known-user auth: skips the email one-time-code flow and attributes
+				// chats to the real customer, so Ari responds. entryPoint + a stable
+				// externalId resume the user's single ongoing Ari chat on every visit.
+				window.Plain?.init({
+					appId: PLAIN_CHAT_APP_ID,
+					customerDetails: {
+						email: identity.email,
+						emailHash: identity.emailHash,
+						fullName: identity.fullName,
+					},
+					threadDetails: {
+						externalId: identity.chatExternalId,
+					},
+					entryPoint: {
+						type: "chat",
+						externalId: identity.chatExternalId,
+						singleChatMode: true,
+					},
+				});
+			} catch (error) {
+				// Fall back to the built-in email-verification flow so chat still
+				// works even if the identity route/secret is unavailable.
+				console.warn("Falling back to email-verification chat auth:", error);
+				window.Plain?.init({
+					appId: PLAIN_CHAT_APP_ID,
+					requireAuthentication: true,
+				});
+			}
 		};
 		script.onerror = () => {
 			console.warn("Failed to load Plain chat widget");
