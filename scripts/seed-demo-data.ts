@@ -1,5 +1,6 @@
 import { PlainClient } from "@team-plain/typescript-sdk";
 import { inspect } from "util";
+import { customerIdentity } from "@/lib/customerIdentity";
 
 // One-off script to create the demo data this example needs (README "Step 2").
 // Run with: PLAIN_API_KEY=<your_key> npx tsx scripts/seed-demo-data.ts
@@ -11,10 +12,8 @@ if (!apiKey) {
 
 const client = new PlainClient({ apiKey });
 
-// These match the values hardcoded in the app.
-const tenantExternalId = "abcd1234";
-const customerName = "Bob Smith";
-const customerEmail = "bob.smith@example.com";
+// Single source of truth — seeds the same identity the app authenticates as.
+const { email: customerEmail, fullName: customerName, tenantExternalId } = customerIdentity;
 
 function logError(label: string, error: unknown): never {
 	console.error(

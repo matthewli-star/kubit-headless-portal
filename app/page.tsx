@@ -3,13 +3,14 @@ import { PaginationControls } from "@/components/paginationControls";
 import { ThreadRow } from "@/components/threadRow";
 import { ContinueInChatButton } from "@/components/continueInChatButton";
 import { plainClient } from "@/lib/plainClient";
+import { customerIdentity } from "@/lib/customerIdentity";
 import { ThreadStatus } from "@team-plain/typescript-sdk";
 import styles from "./page.module.css";
 
 export const fetchCache = "force-no-store";
 
 // When adapting this example get the tenant id as part of auth or fetch it afterwards
-const tenantExternalId = "abcd1234";
+const tenantExternalId = customerIdentity.tenantExternalId;
 
 export default async function Home({
 	searchParams,
