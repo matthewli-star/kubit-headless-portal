@@ -1,5 +1,6 @@
 import { plainClient } from "@/lib/plainClient";
 import { inspect } from "util";
+import { customerIdentity } from "@/lib/customerIdentity";
 
 export type RequestBody = {
 	title: string;
@@ -10,10 +11,7 @@ export type ContactFormResponse = {
 	threadId: string;
 };
 
-// When implementing this for real, take these values from user auth (e.g validate auth token and take values from claims)
-const name = "Bob Smith";
-const email = "bob.smith@example.com";
-const tenantExternalId = "abcd1234";
+const { email, fullName: name, tenantExternalId } = customerIdentity;
 
 export async function POST(request: Request) {
 	// In production validation of the request body might be necessary.
